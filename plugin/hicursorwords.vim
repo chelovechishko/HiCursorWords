@@ -51,6 +51,7 @@ highlight! link WordUnderTheCursor Underlined
 augroup HiCursorWords
     autocmd!
     autocmd  CursorMoved,CursorMovedI  *  call s:HiCursorWords__startHilighting()
+    autocmd  WinLeave * call s:HiCursorWords__stopHilighting()
 augroup END
 
 
@@ -111,9 +112,19 @@ function! s:HiCursorWords__startHilighting()
     augroup HiCursorWordsUpdate
         autocmd!
         autocmd CursorHold,CursorHoldI  *
-                    \ if exists('b:HiCursorWords__oldUpdatetime') | let &updatetime = b:HiCursorWords__oldUpdatetime | endif
-                    \ | call s:HiCursorWords__execute()
+            \ if exists('b:HiCursorWords__oldUpdatetime') | let &updatetime = b:HiCursorWords__oldUpdatetime | endif
+            \ | call s:HiCursorWords__execute()
     augroup END
+endfunction
+
+" Steven Lu: Add functionality to prevent the HCW styles being present in 
+" a vim window that is out of focus. For example, it confuses and interferes 
+" with vim-mark styles
+function! s:HiCursorWords__stopHilighting()
+    if exists("w:HiCursorWords__matchId")
+        call matchdelete(w:HiCursorWords__matchId)
+        unlet w:HiCursorWords__matchId
+    endif
 endfunction
 
 " vim: set et ft=vim sts=4 sw=4 ts=4 tw=78 :
