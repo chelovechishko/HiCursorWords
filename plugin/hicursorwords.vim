@@ -50,7 +50,7 @@ highlight! link WordUnderTheCursor Underlined
 
 augroup HiCursorWords
     autocmd!
-    autocmd  CursorMoved  *  call s:HiCursorWords__startHilighting()
+    autocmd  CursorMoved,CursorMovedI  *  call s:HiCursorWords__startHilighting()
 augroup END
 
 
