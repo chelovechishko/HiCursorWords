@@ -32,6 +32,11 @@
 "   WordUnderTheCursor
 "
 "
+"
+" Source this file and put the following line in your vimrc to
+" toggle auto-highlighting of the word under the cursor.
+"map <F5> :call HiCursorWords_toggle()<cr>
+
 
 if !exists('g:HiCursorWords_delay')
     let g:HiCursorWords_delay = 200
@@ -45,6 +50,9 @@ if !exists('g:HiCursorWords_debugEchoHiName')
     let g:HiCursorWords_debugEchoHiName = 0
 endif
 
+if !exists('g:HiCursorWords_visible')
+    let g:HiCursorWords_visible = 1
+endif
 
 highlight! link WordUnderTheCursor Underlined
 
@@ -124,6 +132,16 @@ function! s:HiCursorWords__stopHilighting()
     if exists("w:HiCursorWords__matchId")
         call matchdelete(w:HiCursorWords__matchId)
         unlet w:HiCursorWords__matchId
+    endif
+endfunction
+
+function! HiCursorWords_toggle()
+    if g:HiCursorWords_visible == 0
+        hi link WordUnderTheCursor Underlined
+        let g:HiCursorWords_visible = 1
+    else
+        hi link WordUnderTheCursor NONE
+        let g:HiCursorWords_visible = 0
     endif
 endfunction
 
