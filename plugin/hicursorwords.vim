@@ -25,6 +25,9 @@
 "   g:HiCursorWords_debugEchoHiName = 0
 "       If not 0, echoes the highlight group name under the cursor.
 "
+"   g:HiCursorWords_visible = 1
+"       Set to 0 in vimrc to startup with HiCursorWords disabled
+"
 " Hightlight groups:
 "
 "   (Do :highlight! as you like.)
@@ -54,7 +57,9 @@ if !exists('g:HiCursorWords_visible')
     let g:HiCursorWords_visible = 1
 endif
 
-highlight! link WordUnderTheCursor Underlined
+if g:HiCursorWords_visible
+    highlight! link WordUnderTheCursor Underlined
+endif
 
 augroup HiCursorWords
     autocmd!
