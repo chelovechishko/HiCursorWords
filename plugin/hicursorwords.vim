@@ -59,6 +59,8 @@ endif
 
 if g:HiCursorWords_visible
     highlight! link WordUnderTheCursor Underlined
+else
+    highlight! link WordUnderTheCursor NONE
 endif
 
 augroup HiCursorWords
@@ -142,10 +144,10 @@ endfunction
 
 function! HiCursorWords_toggle()
     if g:HiCursorWords_visible == 0
-        hi link WordUnderTheCursor Underlined
+        highlight! link WordUnderTheCursor Underlined
         let g:HiCursorWords_visible = 1
     else
-        hi link WordUnderTheCursor NONE
+        highlight! link WordUnderTheCursor NONE
         let g:HiCursorWords_visible = 0
     endif
 endfunction
