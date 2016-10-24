@@ -28,12 +28,19 @@
 "   g:HiCursorWords_visible = 1
 "       Set to 0 in vimrc to startup with HiCursorWords disabled
 "
+"   g:HiCursorWords_style
+"       Set cursor-word style
+"
+"   or
+"
+"   g:HiCursorWords_linkStyle
+"       Set cursor-word style for linking
+"
 " Hightlight groups:
 "
 "   (Do :highlight! as you like.)
 "
 "   WordUnderTheCursor
-"
 "
 "
 " Source this file and put the following line in your vimrc to
@@ -57,8 +64,16 @@ if !exists('g:HiCursorWords_visible')
     let g:HiCursorWords_visible = 1
 endif
 
+if !exists('g:HiCursorWords_style') && !exists('g:HiCursorWords_linkStyle')
+    let g:HiCursorWords_linkStyle='Underlined'
+endif
+
 if g:HiCursorWords_visible
-    highlight! link WordUnderTheCursor Underlined
+    if exists('g:HiCursorWords_style')
+        exec 'highlight! WordUnderTheCursor ' . g:HiCursorWords_style
+    elseif exists('g:HiCursorWords_linkStyle')
+        exec 'highlight! link WordUnderTheCursor '.  g:HiCursorWords_linkStyle
+    endif
 else
     highlight! link WordUnderTheCursor NONE
 endif
