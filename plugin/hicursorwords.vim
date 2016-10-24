@@ -84,7 +84,6 @@ augroup HiCursorWords
     autocmd  WinLeave * call s:HiCursorWords__stopHilighting()
 augroup END
 
-
 function! s:HiCursorWords__getHiName(linenum, colnum)
     let hiname = synIDattr(synID(a:linenum, a:colnum, 0), "name")
     let hiname = s:HiCursorWords__resolveHiName(hiname)
@@ -130,7 +129,7 @@ function! s:HiCursorWords__execute()
     if strlen(word) != 0
         if strlen(g:HiCursorWords_hiGroupRegexp) != 0
                     \ && match(s:HiCursorWords__getHiName(linenum, colnum), g:HiCursorWords_hiGroupRegexp) == -1
-                return
+            return
         endif
         let w:HiCursorWords__matchId = matchadd('WordUnderTheCursor', word, 0)
     endif
@@ -142,13 +141,13 @@ function! s:HiCursorWords__startHilighting()
     augroup HiCursorWordsUpdate
         autocmd!
         autocmd CursorHold,CursorHoldI  *
-            \ if exists('b:HiCursorWords__oldUpdatetime') | let &updatetime = b:HiCursorWords__oldUpdatetime | endif
-            \ | call s:HiCursorWords__execute()
+                    \ if exists('b:HiCursorWords__oldUpdatetime') | let &updatetime = b:HiCursorWords__oldUpdatetime | endif
+                    \ | call s:HiCursorWords__execute()
     augroup END
 endfunction
 
-" Steven Lu: Add functionality to prevent the HCW styles being present in 
-" a vim window that is out of focus. For example, it confuses and interferes 
+" Steven Lu: Add functionality to prevent the HCW styles being present in
+" a vim window that is out of focus. For example, it confuses and interferes
 " with vim-mark styles
 function! s:HiCursorWords__stopHilighting()
     if exists("w:HiCursorWords__matchId")
