@@ -67,7 +67,7 @@ Or clone it into your bundle-path and use with pathogen.
 
 or a submodule
 
-    cd ~/vim.rc
+    cd ~/.vim
     git submodule add https://github.com/pboettch/vim-highlight-cursor-words.git bundle/vim-highlight-cursor-words
 
 ----------
