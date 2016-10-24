@@ -1,41 +1,41 @@
-# HiCursorWords MOD #
+# VIM plugin for highlighting words under cursor
 
 ----------
 
-## About ##
+## About
 
-This script highlights words under the cursor like many IDEs.
+This script highlights words under the cursor everywhere in the opened buffer. This doesn't provide scope-aware highlighting nor language specific one.
 
-This doesn't provide scope-aware highlighting nor language specific one.
-You can control highlighting by highlighting group names. 
+This is forked from [#4306](http://www.vim.org/scripts/script.php?script_id=4306 "http://www.vim.org/scripts/script.php?script_id=4306") by [Shuhei Kubota](http://www.vim.org/account/profile.php?user_id=7032 "Shuhei Kubota")
 
-this is forked from [#4306](http://www.vim.org/scripts/script.php?script_id=4306 "http://www.vim.org/scripts/script.php?script_id=4306") by [Shuhei Kubota](http://www.vim.org/account/profile.php?user_id=7032 "Shuhei Kubota") and made a little change by 
-[荒野无灯](http://ihacklog.com "荒野无灯@iHacklog")
-
-HiCursorWords : Highlights words under the cursor. 
+With contributions from [荒野无灯](http://ihacklog.com "荒野无灯@iHacklog")
 
 没错，这就是你要找的vim **高亮与当前光标下单词相同的所有单词** 的功能。
 
-the original plugin set highlight group to **Underline**,I changed it to **MatchParen**
+2016-10-24: the highlighting-style is now configurable via `let g:HiCursorWords_linkStyle` or `g:HiCursorWords_style`
 
-## Configuration ##
+## Configuration
 
-**highlight group:**
+**highlight configuration**
 
-hicursorwords.vim line 49:
+Configurable within your .vimrc:
 
-	highlight! link WordUnderTheCursor MatchParen
+Either by defining a style:
 
-You can change it to what you want.
+    let g:HiCursorWords_style='term=reverse cterm=reverse gui=reverse'
 
+or linking to an existing one
 
-**default config:**
-	
+    let g:HiCursorWords_linkStyle='VisualNOS'
+
+**default config**
+
 	let g:HiCursorWords_delay = 200
 	let g:HiCursorWords_hiGroupRegexp = ''
 	let g:HiCursorWords_debugEchoHiName = 0
+    let g:HiCursorWords_linkStyle='Underlined'
 
-**Variables explanation:**
+**Other variables**
 
 (A right hand side value is a default value.)
 
@@ -44,7 +44,8 @@ You can change it to what you want.
 A delay for highlighting in milliseconds.
 Smaller value may cause your machine slow down.
 
- 	g:HiCursorWords_hiGroupRegexp = ''
+    g:HiCursorWords_hiGroupRegexp = ''
+
 If empty, all words are highlighted.
 If not empty, only the specified highlight group is highlighted.
 (my memo: 'Identifier\|vimOperParen')
@@ -52,12 +53,22 @@ If not empty, only the specified highlight group is highlighted.
 To investigate highlight group name, the next variable may help you.
 
 	g:HiCursorWords_debugEchoHiName = 0
-If not 0, echoes the highlight group name under the cursor. 
+
+If not 0, echoes the highlight group name under the cursor.
 
 
-## Installation details ##
-Just put this file into the **plugin** directory. 
+## Installation details
 
+Just put this file into the **plugin** directory.
+
+Or clone it into your bundle-path and use with pathogen.
+
+    git clone https://github.com/pboettch/vim-highlight-cursor-words.git ~/.vimrc/bundle/vim-highlight-cursor-words
+
+or a submodule
+
+    cd ~/vim.rc
+    git submodule add https://github.com/pboettch/vim-highlight-cursor-words.git bundle/vim-highlight-cursor-words
 
 ----------
 
