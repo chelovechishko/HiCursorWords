@@ -28,12 +28,19 @@
 "   g:HiCursorWords_visible = 1
 "       Set to 0 in vimrc to startup with HiCursorWords disabled
 "
+"   g:HiCursorWords_style
+"       Set cursor-word style
+"
+"   or
+"
+"   g:HiCursorWords_linkStyle
+"       Set cursor-word style for linking
+"
 " Hightlight groups:
 "
 "   (Do :highlight! as you like.)
 "
 "   WordUnderTheCursor
-"
 "
 "
 " Source this file and put the following line in your vimrc to
@@ -57,8 +64,16 @@ if !exists('g:HiCursorWords_visible')
     let g:HiCursorWords_visible = 1
 endif
 
+if !exists('g:HiCursorWords_style') && !exists('g:HiCursorWords_linkStyle')
+    let g:HiCursorWords_linkStyle='Underlined'
+endif
+
 if g:HiCursorWords_visible
-    highlight! link WordUnderTheCursor Underlined
+    if exists('g:HiCursorWords_style')
+        exec 'highlight! WordUnderTheCursor ' . g:HiCursorWords_style
+    elseif exists('g:HiCursorWords_linkStyle')
+        exec 'highlight! link WordUnderTheCursor '.  g:HiCursorWords_linkStyle
+    endif
 else
     highlight! link WordUnderTheCursor NONE
 endif
@@ -68,7 +83,6 @@ augroup HiCursorWords
     autocmd  CursorMoved,CursorMovedI  *  call s:HiCursorWords__startHilighting()
     autocmd  WinLeave * call s:HiCursorWords__stopHilighting()
 augroup END
-
 
 function! s:HiCursorWords__getHiName(linenum, colnum)
     let hiname = synIDattr(synID(a:linenum, a:colnum, 0), "name")
@@ -115,7 +129,7 @@ function! s:HiCursorWords__execute()
     if strlen(word) != 0
         if strlen(g:HiCursorWords_hiGroupRegexp) != 0
                     \ && match(s:HiCursorWords__getHiName(linenum, colnum), g:HiCursorWords_hiGroupRegexp) == -1
-                return
+            return
         endif
         let w:HiCursorWords__matchId = matchadd('WordUnderTheCursor', word, 0)
     endif
@@ -127,13 +141,13 @@ function! s:HiCursorWords__startHilighting()
     augroup HiCursorWordsUpdate
         autocmd!
         autocmd CursorHold,CursorHoldI  *
-            \ if exists('b:HiCursorWords__oldUpdatetime') | let &updatetime = b:HiCursorWords__oldUpdatetime | endif
-            \ | call s:HiCursorWords__execute()
+                    \ if exists('b:HiCursorWords__oldUpdatetime') | let &updatetime = b:HiCursorWords__oldUpdatetime | endif
+                    \ | call s:HiCursorWords__execute()
     augroup END
 endfunction
 
-" Steven Lu: Add functionality to prevent the HCW styles being present in 
-" a vim window that is out of focus. For example, it confuses and interferes 
+" Steven Lu: Add functionality to prevent the HCW styles being present in
+" a vim window that is out of focus. For example, it confuses and interferes
 " with vim-mark styles
 function! s:HiCursorWords__stopHilighting()
     if exists("w:HiCursorWords__matchId")
