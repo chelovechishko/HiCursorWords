@@ -99,7 +99,7 @@ function! s:HiCursorWords__resolveHiName(hiname)
         return a:hiname
     endif
 
-    return substitute(resolved, '\v(.*) links to ([^ ]+).*$', '\2', '')
+    return substitute(resolved, '\v.* links to ([^ ]+).*$', '\1', '')
 endfunction
 
 function! s:HiCursorWords__getWordUnderTheCursor(linestr, linenum, colnum)
