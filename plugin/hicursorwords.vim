@@ -76,7 +76,7 @@ endif
 augroup HiCursorWords
     autocmd!
     autocmd  CursorMoved,CursorMovedI  *  call s:HiCursorWords__startHilighting()
-    autocmd  WinLeave * call s:HiCursorWords__stopHilighting()
+    autocmd  WinLeave * call s:HiCursorWords__clearHighlighting()
 augroup END
 
 function! s:HiCursorWords__getHiName(linenum, colnum)
@@ -107,10 +107,7 @@ function! s:HiCursorWords__getWordUnderTheCursor(linestr, linenum, colnum)
 endfunction
 
 function! s:HiCursorWords__execute()
-    if exists("w:HiCursorWords__matchId")
-        call matchdelete(w:HiCursorWords__matchId)
-        unlet w:HiCursorWords__matchId
-    endif
+    call s:HiCursorWords__clearHighlighting()
 
     let linestr = getline('.')
     let linenum = line('.')
@@ -144,7 +141,7 @@ endfunction
 " Steven Lu: Add functionality to prevent the HCW styles being present in
 " a vim window that is out of focus. For example, it confuses and interferes
 " with vim-mark styles
-function! s:HiCursorWords__stopHilighting()
+function! s:HiCursorWords__clearHighlighting()
     if exists("w:HiCursorWords__matchId")
         call matchdelete(w:HiCursorWords__matchId)
         unlet w:HiCursorWords__matchId
