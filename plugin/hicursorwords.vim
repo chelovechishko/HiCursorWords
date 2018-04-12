@@ -48,21 +48,10 @@
 "map <F5> :call HiCursorWords_toggle()<cr>
 
 
-if !exists('g:HiCursorWords_delay')
-    let g:HiCursorWords_delay = 200
-endif
-
-if !exists('g:HiCursorWords_hiGroupRegexp')
-    let g:HiCursorWords_hiGroupRegexp = ''
-endif
-
-if !exists('g:HiCursorWords_debugEchoHiName')
-    let g:HiCursorWords_debugEchoHiName = 0
-endif
-
-if !exists('g:HiCursorWords_visible')
-    let g:HiCursorWords_visible = 1
-endif
+let g:HiCursorWords_delay = get(g:, 'HiCursorWords_delay', 200)
+let g:HiCursorWords_hiGroupRegexp = get(g:, 'HiCursorWords_hiGroupRegexp', '')
+let g:HiCursorWords_debugEchoHiName = get(g:, 'HiCursorWords_debugEchoHiName', 0)
+let g:HiCursorWords_visible = get(g:, 'HiCursorWords_visible', 1)
 
 if !exists('g:HiCursorWords_style') && !exists('g:HiCursorWords_linkStyle')
     let g:HiCursorWords_linkStyle='Underlined'
