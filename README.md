@@ -12,8 +12,6 @@ With contributions from [荒野无灯](http://ihacklog.com "荒野无灯@iHacklo
 
 没错，这就是你要找的vim **高亮与当前光标下单词相同的所有单词** 的功能。
 
-2016-10-24: the highlighting-style is now configurable via `let g:HiCursorWords_linkStyle` or `g:HiCursorWords_style`
-
 ## Configuration
 
 **highlight configuration**
@@ -22,18 +20,17 @@ Configurable within your .vimrc:
 
 Either by defining a style:
 
-    let g:HiCursorWords_style='term=reverse cterm=reverse gui=reverse'
+	highlight! WordUnderTheCursor term=reverse cterm=reverse gui=reverse
 
 or linking to an existing one
 
-    let g:HiCursorWords_linkStyle='VisualNOS'
+	highlight! link WordUnderTheCursor VisualNOS
 
 **default config**
 
 	let g:HiCursorWords_delay = 200
 	let g:HiCursorWords_hiGroupRegexp = ''
 	let g:HiCursorWords_debugEchoHiName = 0
-    let g:HiCursorWords_linkStyle='Underlined'
 
 **Other variables**
 
@@ -44,7 +41,7 @@ or linking to an existing one
 A delay for highlighting in milliseconds.
 Smaller value may cause your machine slow down.
 
-    g:HiCursorWords_hiGroupRegexp = ''
+	g:HiCursorWords_hiGroupRegexp = ''
 
 If empty, all words are highlighted.
 If not empty, only the specified highlight group is highlighted.
