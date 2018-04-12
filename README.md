@@ -45,7 +45,7 @@ Smaller value may cause your machine slow down.
 
 If empty, all words are highlighted.
 If not empty, only the specified highlight group is highlighted.
-(my memo: 'Identifier\|vimOperParen')
+(my memo: 'Identifier\\\|vimOperParen')
 
 To investigate highlight group name, the next variable may help you.
 
