@@ -48,6 +48,12 @@
 "map <F5> :call HiCursorWords_toggle()<cr>
 
 
+if exists("g:loaded_HiCursorWords")
+    finish
+endif
+
+let g:loaded_HiCursorWords = 1
+
 let g:HiCursorWords_delay = get(g:, 'HiCursorWords_delay', 200)
 let g:HiCursorWords_hiGroupRegexp = get(g:, 'HiCursorWords_hiGroupRegexp', '')
 let g:HiCursorWords_debugEchoHiName = get(g:, 'HiCursorWords_debugEchoHiName', 0)
